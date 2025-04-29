@@ -2,7 +2,7 @@
 
 class FrontController {
 
-    const CONTROLLER_DIR     = __DIR__ . '/app/Controller/';
+    const CONTROLLER_DIR     = ROOT . '/app/Controller/';
     const DEFAULT_ACTION     = 'main';
     const DEFAULT_CONTROLLER = 'main';
     const BASE_PATH = '';
@@ -19,25 +19,25 @@ class FrontController {
         $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
         if ($path === self::BASE_PATH) {
-        	$this->setController($this->controller);
-        	$this->setAction($this->action);
+            $this->setController($this->controller);
+            $this->setAction($this->action);
         } else {
-			if (self::BASE_PATH != '') {
-				$path = trim(str_replace(self::BASE_PATH, '', $path), '/');
-			}
+            if (self::BASE_PATH != '') {
+                $path = trim(str_replace(self::BASE_PATH, '', $path), '/');
+            }
 
-        	@list($controller, $action, $params) = explode('/', $path, 3);
-        	if (isset($controller)) {
-        	    $this->setController($controller);
-        	}
+            @list($controller, $action, $params) = explode('/', $path, 3);
+            if (isset($controller)) {
+                $this->setController($controller);
+            }
 
-        	if (isset($action)) {
-        	    $this->setAction($action);
-        	}
+            if (isset($action)) {
+                $this->setAction($action);
+            }
 
-        	if (isset($params)) {
-        	    $this->setParams(explode('/', $params));
-        	}
+            if (isset($params)) {
+                $this->setParams(explode('/', $params));
+            }
         }
     }
 
@@ -47,8 +47,8 @@ class FrontController {
         if (!class_exists($controller, true)) {
             call_user_func_array(array(new Error_Controller, 'error404_action'), []);
 
-        	exit;
-    	}
+            exit;
+        }
 
         $this->controller = $controller;
     }
@@ -60,7 +60,7 @@ class FrontController {
         if (!$reflector->hasMethod($action)) {
             call_user_func_array(array(new Error_Controller, 'error404_action'), []);
             exit;
-    	}
+        }
 
         $this->action = $action;
     }

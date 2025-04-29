@@ -2,7 +2,9 @@
 
 session_start();
 
-require_once __DIR__ . '/core/Autoloader.php';
+define('ROOT', realpath(__DIR__));
+
+require_once ROOT . '/core/Autoloader.php';
 
 date_default_timezone_set(Config::get('app.timezone', 'UTC'));
 

@@ -115,10 +115,10 @@ AddDefaultCharset utf-8
 </IfModule>
 
 # Forces https
-<IfModule mod_rewrite.c>
-    RewriteCond %{SERVER_PORT} !^443
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-</IfModule>
+#<IfModule mod_rewrite.c>
+#    RewriteCond %{SERVER_PORT} !^443
+#    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#</IfModule>
 
 RewriteBase /
 
@@ -129,13 +129,13 @@ RewriteBase /
 </Files>
 
 # Protect application and system files from being viewed
-RewriteRule ^(?:app|vendor)\b.* index.php/$0 [L]
+RewriteRule ^(?:app|config|core)\b.* index.php/$0 [L]
 
 Options +FollowSymLinks
 
 # Static folders rewrite
 RewriteRule ^css/(.*)$ public/css/$1 [L]
-RewriteRule ^images/(.*)$ public/images/$1 [L]
+RewriteRule ^img/(.*)$ public/img/$1 [L]
 RewriteRule ^js/(.*)$ public/js/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f

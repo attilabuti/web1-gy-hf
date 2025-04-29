@@ -7,12 +7,16 @@ class Response {
     protected int    $statusCode = 200;
     protected bool   $isRedirect = false;
 
-    public function addHeader(string $name, string $value) : void {
+    public function addHeader(string $name, string $value) : Response {
         $this->headers[$name] = $value;
+
+        return $this;
     }
 
-    public function body(string $content) : void {
+    public function body(string $content) : Response {
         $this->body = $content;
+
+        return $this;
     }
 
     protected function setDefaultHeaders() : void {
@@ -26,8 +30,10 @@ class Response {
         $this->addHeader('Content-Length', (string) strlen($this->body));
     }
 
-    public function setStatusCode(int $code) : void {
+    public function setStatusCode(int $code) : Response {
         $this->statusCode = $code;
+
+        return $this;
     }
 
     protected function sendHeaders() : void {
