@@ -3,6 +3,10 @@
 class Arr {
 
     public static function get($data, $item = null, $default = null) {
+        if ($data === null) {
+            return $default;
+        }
+
         if (!$item) {
             return $default;
         }

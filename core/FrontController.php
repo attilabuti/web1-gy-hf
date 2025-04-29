@@ -33,6 +33,8 @@ class FrontController {
 
             if (isset($action)) {
                 $this->setAction($action);
+            } else {
+                $this->setAction(self::DEFAULT_ACTION);
             }
 
             if (isset($params)) {
