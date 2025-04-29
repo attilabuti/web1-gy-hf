@@ -13,21 +13,33 @@ class Response {
         return $this;
     }
 
+    public function markup(string $content) : Response {
+        $this->addHeader('Content-Type', 'text/html; charset=UTF-8');
+        $this->addCacheControl();
+        $this->body($content);
+
+        return $this;
+    }
+
+    public function plain(string $content) : Response {
+        $this->addHeader('Content-Type', 'text/plain; charset=UTF-8');
+        $this->addCacheControl();
+        $this->body($content);
+
+        return $this;
+    }
+
     public function body(string $content) : Response {
         $this->body = $content;
 
         return $this;
     }
 
-    protected function setDefaultHeaders() : void {
-        if (empty($this->headers) && !$this->isRedirect) {
-            $this->addHeader('Content-Type', 'text/html; charset=UTF-8');
-            $this->addHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-            $this->addHeader('Pragma', 'no-cache');
-            $this->addHeader('Expires', '0');
-        }
-
-        $this->addHeader('Content-Length', (string) strlen($this->body));
+    protected function addCacheControl() : void {
+        $this
+            ->addHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->addHeader('Pragma', 'no-cache')
+            ->addHeader('Expires', '0');
     }
 
     public function setStatusCode(int $code) : Response {
@@ -54,7 +66,7 @@ class Response {
     }
 
     public function send() : void {
-        $this->setDefaultHeaders();
+        $this->addHeader('Content-Length', (string) strlen($this->body));
         $this->sendHeaders();
 
         if (!$this->isRedirect) {

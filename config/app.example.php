@@ -2,5 +2,9 @@
 
 return [
     'debug'     => true,
-    'timezone' => 'Europe/Budapest',
+    'timezone'  => 'Europe/Budapest',
+    'views'     => [
+        'path'  => 'app/View',
+        'ext'   => '.view.php',
+    ],
 ];

@@ -19,7 +19,14 @@ class Path {
             return !empty($part);
         });
 
-        return $prefix . implode(DIRECTORY_SEPARATOR, $processed);
+        return rtrim(
+            preg_replace(
+                '/[\/\\\\]+/',
+                DIRECTORY_SEPARATOR,
+                $prefix . implode(DIRECTORY_SEPARATOR, $processed)
+            ),
+            DIRECTORY_SEPARATOR
+        );
     }
 
 }
