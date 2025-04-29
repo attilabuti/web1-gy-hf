@@ -1,6 +1,7 @@
 <?php
 
 class Autoloader {
+
     protected static array $dirs = ['core', 'app/Controller', 'app/Model'];
 
     static public function loader(string $className) : void {
@@ -16,6 +17,7 @@ class Autoloader {
             }
         }
     }
+
 }
 
 spl_autoload_register('Autoloader::loader');

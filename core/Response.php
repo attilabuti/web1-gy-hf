@@ -1,6 +1,7 @@
 <?php
 
 class Response {
+
     protected array  $headers    = [];
     protected string $body       = '';
     protected int    $statusCode = 200;
@@ -25,7 +26,7 @@ class Response {
         $this->addHeader('Content-Length', (string) strlen($this->body));
     }
 
-    public function setStatusCode(int $code): void {
+    public function setStatusCode(int $code) : void {
         $this->statusCode = $code;
     }
 
@@ -37,7 +38,7 @@ class Response {
         }
     }
 
-    public function redirect(string $url, int $statusCode = 302): void {
+    public function redirect(string $url, int $statusCode = 302) : void {
         $this->isRedirect = true;
 
         http_response_code($statusCode);
@@ -54,4 +55,5 @@ class Response {
             echo $this->body;
         }
     }
+
 }

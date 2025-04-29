@@ -1,6 +1,7 @@
 <?php
 
 class FrontController {
+
     const CONTROLLER_DIR     = __DIR__ . '/app/Controller/';
     const DEFAULT_ACTION     = 'main';
     const DEFAULT_CONTROLLER = 'main';
@@ -71,4 +72,5 @@ class FrontController {
     public function run() : void {
         call_user_func_array(array(new $this->controller, $this->action), $this->params);
     }
+
 }

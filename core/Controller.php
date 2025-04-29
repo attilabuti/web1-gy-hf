@@ -1,6 +1,7 @@
 <?php
 
-class Controller {
+abstract class Controller {
+
     protected Response $response;
 
     public function __construct() {
@@ -10,4 +11,5 @@ class Controller {
     public function __destruct() {
         $this->response->send();
     }
+
 }
