@@ -2,44 +2,60 @@
 
 class FrontController {
 
-    const CONTROLLER_DIR     = ROOT . '/app/Controller/';
-    const DEFAULT_ACTION     = 'main';
-    const DEFAULT_CONTROLLER = 'main';
-    const BASE_PATH = '';
-
-    protected string $controller = self::DEFAULT_CONTROLLER;
-    protected string $action     = self::DEFAULT_ACTION;
-    protected array  $params     = array();
+    protected string $controller;
+    protected string $action;
+    protected bool   $hasBefore = false;
 
     public function __construct() {
         $this->parseUri();
     }
 
+    protected function normalizeUri(string $uri) : string {
+        $path = trim(preg_replace('/[\/\\\\]+/', '/', strtolower($uri)));
+
+        if (strlen($path) === 0) {
+            $path = '/';
+        }
+
+        $path = ($path[0] !== '/') ? '/' . $path : $path;
+
+        return rtrim($path, '/');
+    }
+
     protected function parseUri() : void {
-        $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        $path = $this->normalizeUri($_SERVER['REQUEST_URI'], true);
 
-        if ($path === self::BASE_PATH) {
-            $this->setController($this->controller);
-            $this->setAction($this->action);
-        } else {
-            if (self::BASE_PATH != '') {
-                $path = trim(str_replace(self::BASE_PATH, '', $path), '/');
-            }
+        $basePath = $this->normalizeUri(Config::get('app.basePath', ''));
+        if (strlen($basePath) !== 0 && $basePath !== '/') {
+            $path = $this->normalizeUri(substr($path, strlen($basePath)));
+        }
 
-            @list($controller, $action, $params) = explode('/', $path, 3);
-            if (isset($controller)) {
-                $this->setController($controller);
-            }
+        $routes = require Path::join(Path::base(), 'app', 'routes' . '.php');
 
-            if (isset($action)) {
-                $this->setAction($action);
-            } else {
-                $this->setAction(self::DEFAULT_ACTION);
-            }
+        $routeFound = false;
+        foreach ($routes as $route => $options) {
+            if ($this->normalizeUri($route) === $path) {
+                if (!isset($options['controller']) || empty($options['controller'])) {
+                    $this->setController('main');
+                } else {
+                    $this->setController($options['controller']);
+                }
 
-            if (isset($params)) {
-                $this->setParams(explode('/', $params));
+                if (!isset($options['action']) || empty($options['action'])) {
+                    $this->setAction('main');
+                } else {
+                    $this->setAction($options['action']);
+                }
+
+                $routeFound = true;
+
+                break;
             }
+        }
+
+        if (!$routeFound) {
+            $this->callError();
+            exit;
         }
     }
 
@@ -47,8 +63,7 @@ class FrontController {
         $controller = ucfirst(strtolower($controller)) . '_Controller';
 
         if (!class_exists($controller, true)) {
-            call_user_func_array(array(new Error_Controller, 'error404_action'), []);
-
+            $this->callError();
             exit;
         }
 
@@ -56,23 +71,48 @@ class FrontController {
     }
 
     public function setAction(string $action) : void {
-        $action = strtolower($action) . '_action';
-
+        $action = strtolower($action);
         $reflector = new \ReflectionClass($this->controller);
-        if (!$reflector->hasMethod($action)) {
-            call_user_func_array(array(new Error_Controller, 'error404_action'), []);
+
+
+        if ($reflector->hasMethod('_before')) {
+            $this->hasBefore = true;
+        }
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
+            $postAction = "{$action}_post_action";
+
+            if ($reflector->hasMethod($postAction)) {
+                $this->action = $postAction;
+                return;
+            }
+        }
+
+        $getAction = "{$action}_action";
+        if (!$reflector->hasMethod($getAction)) {
+            $this->callError();
             exit;
         }
 
-        $this->action = $action;
+        $this->action = $getAction;
     }
 
-    public function setParams(array $params) : void {
-        $this->params = $params;
+    public function callError() : void {
+        $this->controller = 'Error_Controller';
+        $this->action     = 'error404_action';
+        $this->hasBefore  = false;
+
+        $this->run();
     }
 
     public function run() : void {
-        call_user_func_array(array(new $this->controller, $this->action), $this->params);
+        $controller = new $this->controller;
+
+        if ($this->hasBefore) {
+            $controller->_before();
+        }
+
+        call_user_func_array(array($controller, $this->action), []);
     }
 
 }

@@ -2,8 +2,17 @@
 
 class User_Controller extends Controller {
 
+    public function _before() {
+        echo 'Before... ';
+    }
+
+    public function registration_post_action() : void {
+        echo 'Regisztráció - POST';
+        exit;
+    }
+
     public function registration_action() : void {
-        echo 'Regisztráció';
+        echo 'Regisztráció - GET';
         exit;
     }
 
