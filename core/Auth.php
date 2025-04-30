@@ -5,9 +5,7 @@ class Auth {
     private ?array $user = null;
 
     public function __construct() {
-        if (isset($_SESSION['auth_user']) && !empty($_SESSION['auth_user']) && is_array($_SESSION['auth_user'])) {
-            $this->user = $_SESSION['auth_user'];
-        }
+        $this->user = Session::get('auth_user', null) ?? null;
     }
 
     public function login(int $userId, array $data = []) : void {
@@ -16,11 +14,11 @@ class Auth {
             'data'    => $data,
         ];
 
-        $_SESSION['auth_user'] = $this->user;
+        Session::set('auth_user', $this->user);
     }
 
     public function logout() : void {
-        unset($_SESSION['auth_user']);
+        Session::delete('auth_user');
         $this->user = null;
     }
 

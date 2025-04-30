@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 define('ROOT', realpath(__DIR__));
 
 require_once ROOT . '/core/Autoloader.php';

@@ -52,7 +52,11 @@ class User_Controller extends Controller {
             ],
         ]]);
 
-        print_r($result);
+        if ($result !== null) {
+            Flash::set($result, 'error');
+            $this->response->redirect('/regisztracio');
+        }
+
 
         // $users = new Users_Model();
     }

@@ -1,5 +1,18 @@
 <?=View::render('base/header', ['title' => 'Regisztráció'])?>
 
+<?php
+$errorMessage   = Flash::get('error');
+$successMessage = Flash::get('message');
+
+if ($errorMessage !== null) {
+    echo '<h3 style="color:red;">'.$errorMessage.'</h3>';
+}
+
+if ($successMessage !== null) {
+    echo '<h3 style="color:green;">'.$successMessage.'</h3>';
+}
+?>
+
 <form action="/regisztracio" method="POST">
     <label for="username">Felhasználónév:</label><br>
     <input type="text" id="username" name="username"><br><br>

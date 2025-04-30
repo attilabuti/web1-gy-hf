@@ -12,4 +12,18 @@ class Helper {
         return trim($input);
     }
 
+    public static function sanitize($data) {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[is_string($key) ? self::sanitize($key) : $key] = self::sanitize($value);
+            }
+        }
+
+        if (is_string($data)) {
+            $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+        }
+
+        return $data;
+    }
+
 }
