@@ -33,4 +33,22 @@ class Users_Model extends Model {
         ]);
     }
 
+    public function getUserHash(string $email) {
+        $stmt = $this->db->prepare('SELECT password FROM users WHERE email = :email');
+        $stmt->execute([':email' => $email]);
+
+        $passwordHash = $stmt->fetchColumn();
+
+        return $passwordHash !== false ? $passwordHash : null;
+    }
+
+    public function getUserInfo(string $email) {
+        $stmt = $this->db->prepare('SELECT id, username, first_name, last_name FROM users WHERE email = :email');
+        $stmt->execute([':email' => $email]);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user !== false ? $user : null;
+    }
+
 }
