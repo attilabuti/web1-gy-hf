@@ -2,8 +2,10 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email varchar(255) NOT NULL UNIQUE,
-    name varchar(255) NOT NULL,
+    username varchar(255) NOT NULL UNIQUE,
     password varchar(255) NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET FOREIGN_KEY_CHECKS=1;
