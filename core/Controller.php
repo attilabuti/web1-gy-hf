@@ -10,6 +10,8 @@ abstract class Controller {
         $this->request  = new Request();
         $this->response = new Response();
         $this->auth     = new Auth();
+
+        App::bind('auth', $this->auth);
     }
 
 }

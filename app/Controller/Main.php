@@ -8,10 +8,6 @@ class Main_Controller extends Controller {
                 'name' => $this->auth->isLoggedIn() ? $this->auth->getData('name') : 'World',
             ])
         )->send();
-
-        // $this->response
-        //     ->plain('Hello, World!')
-        //     ->send();
     }
 
 }
