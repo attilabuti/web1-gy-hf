@@ -56,6 +56,11 @@
     line-height: 1.3rem;
 }
 
+.error-page figure img {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 1216px) {
     .hero {
         min-height: 25vh !important;
