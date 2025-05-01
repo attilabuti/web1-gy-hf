@@ -1,0 +1,85 @@
+.navbar-logo {
+    font-weight: 700;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero .title:before {
+    content: '„';
+}
+
+.hero .title:after {
+    content: '”';
+}
+
+.hero .subtitle {
+    font-style: italic;
+}
+
+.hero .subtitle:before {
+    content: '— ';
+}
+
+.movies .card-image:first-child img {
+    border-start-end-radius: 0;
+    border-start-start-radius: 0;
+}
+
+.movies .card {
+    border-radius: 0;
+}
+
+.movies .card-content {
+    padding: 1.2rem;
+}
+
+.movies .media {
+    margin-bottom: 0.9rem !important;
+}
+
+.movies .description {
+    font-size: 0.92rem !important;
+    text-align: justify;
+    line-height: 1.3rem;
+}
+
+@media screen and (max-width: 1216px) {
+    .hero {
+        min-height: 25vh !important;
+    }
+
+    .hero .title {
+        font-size: 1.5rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        min-height: 15vh !important;
+    }
+
+    .hero .title {
+        font-size: 1.2rem;
+    }
+
+    .hero .subtitle {
+        font-size: 0.8rem;
+    }
+}

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
+    <title>M0VI3Z - <?= $title ?></title>
     <link rel="stylesheet" href="css/bulma.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/">FILMEK</a>
+            <a class="navbar-item navbar-logo" href="/">M0VI3Z</a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>

@@ -5,6 +5,10 @@ return [
         'controller' => 'main',
         'action'     => 'main'
     ],
+    '/film'          => [
+        'controller' => 'main',
+        'action'     => 'movie'
+    ],
     '/regisztracio'  => [
         'controller' => 'user',
         'action'     => 'registration'
