@@ -24,8 +24,8 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a href="/" class="navbar-item">Főoldal</a>
-                <a href="/filmplakatok" class="navbar-item">Filmplakátok</a>
                 <?php if (App::get('auth')->isLoggedIn()) { ?>
+                <a href="/feltoltes" class="navbar-item">Feltöltés</a>
                 <a href="/uzenetek" class="navbar-item">Üzenetek</a>
                 <?php }?>
                 <a href="/kapcsolat" class="navbar-item">Kapcsolat</a>

@@ -16,6 +16,20 @@ const validate = {
                         this._setError(inputEl, rule.message);
                         return false;
                     }
+                } else if (currentRule.includes('intmin:')) {
+                    let intMin = currentRule.replace('intmin:', '');
+
+                    if (!this._intMin(inputEl.value, intMin)) {
+                        this._setError(inputEl, rule.message.replace('$$', intMin));
+                        return false;
+                    }
+                } else if (currentRule.includes('intmax:')) {
+                    let intMax = currentRule.replace('intmax:', '');
+
+                    if (!this._intMax(inputEl.value, intMax)) {
+                        this._setError(inputEl, rule.message.replace('$$', intMax));
+                        return false;
+                    }
                 } else if (currentRule.includes('min:')) {
                     let minLength = parseInt(currentRule.replace('min:', ''));
 
@@ -45,6 +59,15 @@ const validate = {
 
                     if (subRule == 'mail') {
                         if (!this._isValidEmail(inputEl.value)) {
+                            this._setError(inputEl, rule.message);
+                            return false;
+                        }
+                    }
+                } else if (currentRule.includes('type:')) {
+                    let subRule = currentRule.replace('type:', '');
+
+                    if (subRule == 'image') {
+                        if (!this._isValidImage(inputEl)) {
                             this._setError(inputEl, rule.message);
                             return false;
                         }
@@ -114,10 +137,22 @@ const validate = {
         return !this._isString(value) ? false : (value.length <= length);
     },
 
+    _intMin(value, min) {
+        return parseInt(value, 10) >= parseInt(min, 10);
+    },
+
+    _intMax(value, max) {
+        return parseInt(value, 10) <= parseInt(max, 10);
+    },
+
     _isValidEmail(value) {
         return value.match(
             /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
+    },
+
+    _isValidImage(el) {
+        return !el.files[0].type.startsWith('image/') ? false : true;
     },
 
     _isString(value) {

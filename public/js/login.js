@@ -1,7 +1,7 @@
 function _initPage() {
-    const regForm = document.querySelector('#login');
-    if (regForm !== null && regForm !== undefined) {
-        regForm.addEventListener('submit', checkLoginForm);
+    const loginForm = document.querySelector('#login');
+    if (loginForm !== null && loginForm !== undefined) {
+        loginForm.addEventListener('submit', checkLoginForm);
     }
 }
 

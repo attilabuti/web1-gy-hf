@@ -11,6 +11,18 @@ class Valid {
                 foreach ($ruleSet as $r => $err) {
                     if ($r == 'required' && ($input === null || strlen($input) === 0)) {
                         return $err;
+                    } else if (Helper::strContains($r, 'intmin:')) {
+                        $min = (int) str_replace('intmin:', '', $r);
+
+                        if ($input === null || ((int) $input < $min)) {
+                            return str_replace('$$', $min, $err);
+                        }
+                    } else if (Helper::strContains($r, 'intmax:')) {
+                        $max = (int) str_replace('intmax:', '', $r);
+
+                        if ($input !== null && ((int) $input > $max)) {
+                            return str_replace('$$', $max, $err);
+                        }
                     } else if (Helper::strContains($r, 'min:')) {
                         $length = (int) str_replace('min:', '', $r);
 

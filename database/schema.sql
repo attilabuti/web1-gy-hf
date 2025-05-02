@@ -1,20 +1,31 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email varchar(255) NOT NULL UNIQUE,
-    username varchar(255) NOT NULL UNIQUE,
-    password varchar(255) NOT NULL,
-    first_name varchar(255) NOT NULL,
-    last_name varchar(255) NOT NULL,
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
-    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id int(11),
-    subject varchar(255) NOT NULL,
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11),
+    subject VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS movies;
+CREATE TABLE movies (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    release_date SMALLINT UNSIGNED NOT NULL,
+    description TEXT NOT NULL,
+    poster VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

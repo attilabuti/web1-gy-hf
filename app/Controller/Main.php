@@ -22,8 +22,4 @@ class Main_Controller extends Controller {
         )->send();
     }
 
-    public function movie_action() : void {
-
-    }
-
 }

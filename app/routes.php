@@ -6,8 +6,12 @@ return [
         'action'     => 'main'
     ],
     '/film'          => [
-        'controller' => 'main',
-        'action'     => 'movie'
+        'controller' => 'movie',
+        'action'     => 'main'
+    ],
+    '/feltoltes'     => [
+        'controller' => 'movie',
+        'action'     => 'upload'
     ],
     '/kapcsolat'     => [
         'controller' => 'contact',

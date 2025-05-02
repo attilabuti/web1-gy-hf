@@ -1,7 +1,7 @@
 function _initPage() {
-    const regForm = document.querySelector('#contact');
-    if (regForm !== null && regForm !== undefined) {
-        regForm.addEventListener('submit', checkContactForm);
+    const contactForm = document.querySelector('#contact');
+    if (contactForm !== null && contactForm !== undefined) {
+        contactForm.addEventListener('submit', checkContactForm);
     }
 }
 
