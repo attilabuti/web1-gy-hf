@@ -32,11 +32,14 @@
             </div>
 
             <div class="navbar-end">
-                <div class="navbar-item">
-                    <?php if (App::get('auth')->isLoggedIn()) { ?>
+
+                <?php if (App::get('auth')->isLoggedIn()) { ?>
+                    <div class="navbar-item">
                         <?=App::get('auth')->getData('name')?> (<?=App::get('auth')->getData('username')?>)
-                        <a href="/kijelentkezes" class="navbar-item">Kijelentkezés</a>
-                    <?php } else { ?>
+                    </div>
+                    <a href="/kijelentkezes" class="navbar-item">Kijelentkezés</a>
+                <?php } else { ?>
+                <div class="navbar-item">
                     <div class="buttons">
                         <a href="/regisztracio" class="button is-primary">
                             <strong>Regisztráciió</strong>
@@ -46,8 +49,9 @@
                             Bejelentkezés
                         </a>
                     </div>
-                    <?php } ?>
                 </div>
+                <?php } ?>
+
             </div>
         </div>
     </nav>

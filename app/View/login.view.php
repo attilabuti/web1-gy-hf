@@ -1,28 +1,61 @@
 <?=View::render('base/header', ['title' => 'Bejelentkezés'])?>
 
-<?php
-$message = Flash::get('message');
-if ($message !== null) {
-    echo '<h3 style="color:green;">'.$message.'</h3>';
-}
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
 
-$errorMessage = Flash::get('error');
-if ($errorMessage !== null) {
-    echo '<h3 style="color:red;">'.$errorMessage.'</h3>';
-}
-?>
+            <?php
+            $errorMessage = Flash::get('error');
+            if ($errorMessage !== null) {
+            ?>
+            <div class="column is-half is-offset-one-quarter">
+                <article class="message is-danger">
+                    <div class="message-body"><?=$errorMessage?></div>
+                </article>
+            </div>
+            <?php } ?>
 
-<form action="/bejelentkezes" method="POST">
-    <label for="email">E-mail cím:</label><br>
-    <input type="email" id="email" name="email"><br><br>
+            <?php
+            $message = Flash::get('message');
+            if ($message !== null) {
+            ?>
+            <div class="column is-half is-offset-one-quarter">
+                <article class="message is-success">
+                    <div class="message-body"><?=$message?></div>
+                </article>
+            </div>
+            <?php } ?>
 
-    <label for="password">Jelszó:</label><br>
-    <input type="password" id="password" name="password"><br><br>
+            <div class="column is-half is-offset-one-quarter">
+                <form action="/bejelentkezes" method="POST" id="login" class="box">
+                    <div class="field">
+                        <label class="label">E-mail cím</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="input" id="email" name="email">
+                            <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                        </div>
+                    </div>
 
-    <button type="submit">Bejelentkezés</button>
-</form>
+                    <div class="field">
+                        <label class="label">Jelszó</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="password" id="password" name="password">
+                            <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control is-centered">
+                            <input type="submit" value="Bejelentkezés" class="button is-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/lib/validate.js"></script>
+<script src="js/login.js"></script>
 
 <?=View::render('base/footer')?>
-
-
-

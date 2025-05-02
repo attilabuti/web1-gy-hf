@@ -1,6 +1,6 @@
 <?=View::render('base/header', ['title' => 'Regisztráció'])?>
 
-<section class="section movies">
+<section class="section">
     <div class="container">
         <div class="columns is-multiline">
 
