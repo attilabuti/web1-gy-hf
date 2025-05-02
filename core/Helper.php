@@ -63,4 +63,12 @@ class Helper {
         return $truncated . '...';
     }
 
+    public static function getBaseURL() : string {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $scheme . "://" . $host;
+
+        return $baseUrl;
+    }
+
 }

@@ -2,11 +2,11 @@
 
 class Movies_Model extends Model {
 
-    public function add(string $url, string $title, string $releaseDate, string $description, string $poster) : bool {
+    public function add(string $url, string $title, string $releaseDate, string $description, string $trailer, string $poster) : bool {
         $sql = 'INSERT INTO movies (
-             url,  title,  release_date,  description,  poster
+             url,  title,  release_date,  description,  trailer, poster
         ) VALUES (
-            :url, :title, :release_date, :description, :poster
+            :url, :title, :release_date, :description, :trailer, :poster
         )';
         $stmt = $this->db->prepare($sql);
 
@@ -15,6 +15,7 @@ class Movies_Model extends Model {
             ':title'        => $title,
             ':release_date' => $releaseDate,
             ':description'  => $description,
+            ':trailer'      => $trailer,
             ':poster'       => $poster
         ]);
     }
@@ -31,6 +32,15 @@ class Movies_Model extends Model {
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMovie($url) {
+        $stmt = $this->db->prepare('SELECT * FROM movies WHERE url = :url LIMIT 1');
+        $stmt->execute(['url' => $url]);
+
+        $movie = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $movie && $movie[0] ? $movie[0] : null;
     }
 
 }

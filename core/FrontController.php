@@ -5,6 +5,7 @@ class FrontController {
     protected string $controller;
     protected string $action;
     protected bool   $hasBefore = false;
+    protected array  $data = [];
 
     public function __construct() {
         $this->parseUri();
@@ -34,7 +35,23 @@ class FrontController {
 
         $routeFound = false;
         foreach ($routes as $route => $options) {
-            if ($this->normalizeUri($route) === $path) {
+            if (Helper::strContains($route, '<') && Helper::strContains($route, '>')) {
+                if (preg_match('/<([^>]+)>/', $route, $matches)) {
+                    $extracted = $matches[1];
+                    $route = preg_replace('/<[^>]+>/', '', $route);
+
+                    if (strlen($extracted) > 0 && isset($options['regex']) && !empty($options['regex'])) {
+                        $regex = '#^'.$route.$options['regex'];
+
+                        if (preg_match($regex, $path, $matches)) {
+                            $this->data[$extracted] = $matches[1];
+                            $path = preg_replace('/' . preg_quote($matches[1], '/') . '$/', '', $path);
+                        }
+                    }
+                }
+            }
+
+            if ($this->normalizeUri($route) === $this->normalizeUri($path)) {
                 if (!isset($options['controller']) || empty($options['controller'])) {
                     $this->setController('main');
                 } else {
@@ -70,10 +87,13 @@ class FrontController {
         $this->controller = $controller;
     }
 
-    public function setAction(string $action) : void {
+    public function setAction(string $action, $regex = '') : void {
+        if (strlen($regex) > 0) {
+            // TODO kikeresni a <> részt az action-ben
+        }
+
         $action = strtolower($action);
         $reflector = new \ReflectionClass($this->controller);
-
 
         if ($reflector->hasMethod('_before')) {
             $this->hasBefore = true;
@@ -112,7 +132,7 @@ class FrontController {
             $controller->_before();
         }
 
-        call_user_func_array(array($controller, $this->action), []);
+        call_user_func_array(array($controller, $this->action), $this->data);
     }
 
 }

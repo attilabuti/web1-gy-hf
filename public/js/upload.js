@@ -36,6 +36,12 @@ function checkUploadForm(e) {
             { rule: 'max:5000', message: 'A leírás maximum $$ karakter hosszú lehet.' },
         ]
     }, {
+        el: document.querySelector('#trailer'),
+        rules: [
+            { rule: 'required', message: 'Az előzőteshez tartozó URL megadása kötelező.' },
+            { rule: 'max:150',  message: 'Az előzőteshez tartozó URL maximum $$ karakter hosszú lehet.' },
+        ]
+    }, {
         el: document.querySelector('#poster'),
         rules: [
             { rule: 'required',   message: 'Fájl feltöltése kötelező.' },

@@ -2,9 +2,20 @@
 
 class Movie_Controller extends Controller {
 
-    public function main_action() : void {
+    public function main_action($url = null) : void {
+        $movieModel = new Movies_Model();
+
+        $movie = $movieModel->getMovie(Helper::sanitize($url));
+        if ($movie === null) {
+            $error = new Error_Controller();
+            $error->error404_action();
+            exit;
+        }
+
         $this->response->markup(
-            View::render('main')
+            View::render('movie', [
+                'movie' => $movie
+            ])
         )->send();
     }
 
@@ -49,6 +60,12 @@ class Movie_Controller extends Controller {
                 'required' => 'A lírás megadása kötelező.',
                 'max:5000' => 'A leírás maximum $$ karakter hosszú lehet.',
             ],
+        ], [
+            'name'  => 'trailer',
+            'rules' => [
+                'required' => 'Az előzőteshez tartozó URL megadása kötelező.',
+                'max:150'  => 'Az előzőteshez tartozó URL maximum $$ karakter hosszú lehet.',
+            ],
         ]]);
 
         if ($result !== null) {
@@ -87,11 +104,18 @@ class Movie_Controller extends Controller {
             $url = Helper::createUniqueSlug($url);
         }
 
+        $trailer = $this->getYoutubeEmbedCode($postData['trailer']);
+        if ($trailer === null) {
+            Flash::set('Az előzeteshez megadott URL nem YouTube link.', 'error');
+            $this->response->redirect('/feltoltes');
+        }
+
         $movies->add(
             $url,
             Arr::get($postData, 'title'),
             Arr::get($postData, 'release_date'),
             Arr::get($postData, 'description'),
+            $trailer,
             $posterName,
         );
 
@@ -115,4 +139,13 @@ class Movie_Controller extends Controller {
         print_r($_FILES);
     }
 
+    private function getYoutubeEmbedCode(string $url): ?string {
+        $pattern = '%(?:youtube\.com/(?:watch\?v=|embed/|v/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{11})%';
+
+        if (preg_match($pattern, $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
 }

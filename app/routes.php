@@ -5,9 +5,10 @@ return [
         'controller' => 'main',
         'action'     => 'main'
     ],
-    '/film'          => [
+    '/film/<url>'    => [
         'controller' => 'movie',
-        'action'     => 'main'
+        'action'     => 'main',
+        'regex'      => '([a-z0-9\-]+)$#i',
     ],
     '/feltoltes'     => [
         'controller' => 'movie',

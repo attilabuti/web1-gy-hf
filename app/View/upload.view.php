@@ -50,6 +50,13 @@
                     </div>
 
                     <div class="field">
+                        <label class="label">Előzetes (YouTube)</label>
+                        <div class="control">
+                            <input class="input is-normal" type="text" id="trailer" name="trailer">
+                        </div>
+                    </div>
+
+                    <div class="field">
                         <label class="label">Filmplakát</label>
 
                         <div id="poster-file" class="file has-name is-fullwidth">
