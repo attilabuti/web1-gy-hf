@@ -43,7 +43,7 @@ class User_Controller extends Controller {
                 'min:5'    => 'A jelszónak legalább $$ karakter hosszúnak kell lennie.',
             ],
         ], [
-            'name'  => 'password-re',
+            'name'  => 'password_re',
             'rules' => [
                 'equal:password' => 'A két jelszónak meg kell egyeznie.'
             ],

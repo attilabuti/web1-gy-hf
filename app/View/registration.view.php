@@ -1,32 +1,80 @@
 <?=View::render('base/header', ['title' => 'Regisztráció'])?>
 
-<?php
-$errorMessage = Flash::get('error');
-if ($errorMessage !== null) {
-    echo '<h3 style="color:red;">'.$errorMessage.'</h3>';
-}
-?>
+<section class="section movies">
+    <div class="container">
+        <div class="columns is-multiline">
 
-<form action="/regisztracio" method="POST">
-    <label for="email">E-mail cím:</label><br>
-    <input type="email" id="email" name="email"><br><br>
+            <?php
+            $errorMessage = Flash::get('error');
+            if ($errorMessage !== null) {
+            ?>
+            <div class="column is-half is-offset-one-quarter">
+                <article class="message is-danger">
+                    <div class="message-body"><?=$errorMessage?></div>
+                </article>
+            </div>
+            <?php } ?>
 
-    <label for="password">Jelszó:</label><br>
-    <input type="password" id="password" name="password"><br><br>
+            <div class="column is-half is-offset-one-quarter">
+                <form action="/regisztracio" method="POST" id="registration" class="box">
+                    <div class="field">
+                        <label class="label">Felhasználónév</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="username" name="username">
+                            <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                        </div>
+                    </div>
 
-    <label for="password-re">Jelszó ismét:</label><br>
-    <input type="password" id="password-re" name="password-re"><br><br>
+                    <div class="field">
+                        <label class="label">E-mail cím</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="input" id="email" name="email">
+                            <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                        </div>
+                    </div>
 
-    <label for="username">Felhasználónév:</label><br>
-    <input type="text" id="username" name="username"><br><br>
+                    <div class="field">
+                        <label class="label">Jelszó</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="password" id="password" name="password">
+                            <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+                        </div>
+                    </div>
 
-    <label for="last_name">Családnév:</label><br>
-    <input type="text" id="last_name" name="last_name"><br><br>
+                    <div class="field">
+                        <label class="label">Jelszó ismét</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="password" id="password_re" name="password_re">
+                            <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+                        </div>
+                    </div>
 
-    <label for="first_name">Utónév:</label><br>
-    <input type="text" id="first_name" name="first_name"><br><br>
+                    <div class="field">
+                        <label class="label">Családnév</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="text" id="last_name" name="last_name">
+                        </div>
+                    </div>
 
-    <button type="submit">Regisztráció</button>
-</form>
+                    <div class="field">
+                        <label class="label">Utónév</label>
+                        <div class="control has-icons-left">
+                            <input class="input is-normal" type="text" id="first_name" name="first_name">
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control is-centered">
+                            <input type="submit" value="Regisztráció" class="button is-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/lib/validate.js"></script>
+<script src="js/registration.js"></script>
 
 <?=View::render('base/footer')?>

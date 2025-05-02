@@ -50,4 +50,6 @@
     </div>
 </section>
 
+<script src="js/main.js"></script>
+
 <?=View::render('base/footer')?>

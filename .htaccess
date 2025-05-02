@@ -138,6 +138,7 @@ RewriteRule ^css/(.*)$ public/css/$1 [L]
 RewriteRule ^img/(.*)$ public/img/$1 [L]
 RewriteRule ^js/(.*)$ public/js/$1 [L]
 RewriteRule ^video/(.*)$ public/video/$1 [L]
+RewriteRule ^webfonts/(.*)$ public/webfonts/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

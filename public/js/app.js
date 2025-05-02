@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const heroVideo = document.querySelector('.hero video');
-    if (heroVideo !== null || heroVideo !== undefined) {
-        heroVideo.src = "video/background.mp4";
+    if (typeof window._initPage === 'function') {
+        window._initPage();
     }
 
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
