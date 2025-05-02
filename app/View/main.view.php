@@ -18,25 +18,27 @@
         <div class="fixed-grid has-1-cols-mobile has-2-cols-tablet has-3-cols-desktop has-4-cols-widescreen">
             <div class="grid is-column-gap-2 is-row-gap-2">
 
-                <?php for ($i = 0; $i < 10; $i++) { ?>
+                <?php if (count($movies) === 0) { ?>
+                    <div class="cell">
+                        <h4 class="title is-4">Jelenleg nincsenek megjeleníthető filmek!</h4>
+                    </div>
+                <?php } ?>
+
+                <?php foreach ($movies as $movie) { ?>
                 <div class="cell">
-                    <a href="/film/__URL__">
+                    <a href="/film/<?=$movie['url']?>">
                         <div class="card">
-                            <div class="card-image">
-                                <figure class="image is-16by9">
-                                    <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="Placeholder image" />
-                                </figure>
-                            </div>
+                            <div class="card-image" style="background:url('/img/uploads/<?=$movie['poster']?>')"></div>
                             <div class="card-content">
                                 <div class="media">
                                     <div class="media-content">
-                                        <p class="title is-5">Movie title</p>
-                                        <p class="subtitle is-7">1900</p>
+                                        <p class="title is-6"><?=$movie['title']?></p>
+                                        <p class="subtitle is-7"><?=$movie['release_date']?></p>
                                     </div>
                                 </div>
 
                                 <div class="content description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec.
+                                    <?=Helper::truncateText($movie['description'], 230)?>
                                 </div>
                             </div>
                         </div>

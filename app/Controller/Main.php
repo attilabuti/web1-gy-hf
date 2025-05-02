@@ -15,9 +15,13 @@ class Main_Controller extends Controller {
     ];
 
     public function main_action() : void {
+        $moviesModel = new Movies_Model();
+        $movies = $moviesModel->getMovies();
+
         $this->response->markup(
             View::render('main', [
-                'quote' => $this->quotes[rand(0, count($this->quotes)-1)],
+                'quote'  => $this->quotes[rand(0, count($this->quotes)-1)],
+                'movies' => $movies
             ])
         )->send();
     }

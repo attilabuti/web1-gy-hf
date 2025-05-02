@@ -48,4 +48,19 @@ class Helper {
         return $text . $unique;
     }
 
+    public static function truncateText($text, $maxLength = 250) {
+        if (mb_strlen($text, 'UTF-8') <= $maxLength) {
+            return $text;
+        }
+
+        $truncated = mb_substr($text, 0, $maxLength, 'UTF-8');
+
+        $lastSpace = mb_strrpos($truncated, ' ', 0, 'UTF-8');
+        if ($lastSpace !== false) {
+            $truncated = mb_substr($truncated, 0, $lastSpace, 'UTF-8');
+        }
+
+        return $truncated . '...';
+    }
+
 }

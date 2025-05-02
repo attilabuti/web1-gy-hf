@@ -26,4 +26,11 @@ class Movies_Model extends Model {
         return $stmt->fetchColumn() !== false;
     }
 
+    public function getMovies() {
+        $stmt = $this->db->prepare('SELECT * FROM movies ORDER BY created_at DESC');
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

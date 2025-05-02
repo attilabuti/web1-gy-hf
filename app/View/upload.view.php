@@ -1,4 +1,4 @@
-<?=View::render('base/header', ['title' => 'Regisztráció'])?>
+<?=View::render('base/header', ['title' => 'Feltöltés'])?>
 
 <section class="section">
     <div class="container">
