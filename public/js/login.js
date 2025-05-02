@@ -1,24 +1,21 @@
 function _initPage() {
     const regForm = document.querySelector('#login');
     if (regForm !== null && regForm !== undefined) {
-        regForm.addEventListener('submit', checkRegForm);
+        regForm.addEventListener('submit', checkLoginForm);
     }
 }
 
-function checkRegForm(e) {
+function checkLoginForm(e) {
     e.preventDefault();
 
-    const emailEl      = document.querySelector('#email');
-    const passwordEl   = document.querySelector('#password');
-
     const result = validate.check([{
-        el: emailEl,
+        el: document.querySelector('#email'),
         rules: [
             { rule: 'required', message: 'Az e-mail cím megadása kötelező.' },
             { rule: 'is:mail',  message: 'Érvényes e-mail cím megadása kötelező.' },
         ]
     }, {
-        el: passwordEl,
+        el: document.querySelector('#password'),
         rules: [
             { rule: 'required', message: 'A jelszó megadása kötelező.' },
         ]

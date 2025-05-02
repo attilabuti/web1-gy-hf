@@ -51,4 +51,12 @@ class Users_Model extends Model {
         return $user !== false ? $user : null;
     }
 
+    public function getUserFullName(int $userId) {
+        $stmt = $this->db->prepare('SELECT CONCAT(last_name, " ", first_name) AS full_name FROM users WHERE id = :id LIMIT 1');
+        $stmt->execute(['id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user ? $user['full_name'] : null;
+    }
+
 }

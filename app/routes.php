@@ -9,6 +9,14 @@ return [
         'controller' => 'main',
         'action'     => 'movie'
     ],
+    '/kapcsolat'     => [
+        'controller' => 'contact',
+        'action'     => 'main'
+    ],
+    '/uzenetek'      => [
+        'controller' => 'messages',
+        'action'     => 'main'
+    ],
     '/regisztracio'  => [
         'controller' => 'user',
         'action'     => 'registration'
