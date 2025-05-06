@@ -22,14 +22,16 @@
             </a>
         </div>
 
+        <?php $menu = require(ROOT . '/config/menu.php'); ?>
+
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a href="/" class="navbar-item">Főoldal</a>
+                <a href="<?=$menu['fooldal']['path']?>" class="navbar-item"><?=$menu['fooldal']['name']?></a>
                 <?php if (App::get('auth')->isLoggedIn()) { ?>
-                <a href="/feltoltes" class="navbar-item">Feltöltés</a>
-                <a href="/uzenetek" class="navbar-item">Üzenetek</a>
+                <a href="<?=$menu['feltoltes']['path']?>" class="navbar-item"><?=$menu['feltoltes']['name']?></a>
+                <a href="<?=$menu['uzenetek']['path']?>" class="navbar-item"><?=$menu['uzenetek']['name']?></a>
                 <?php }?>
-                <a href="/kapcsolat" class="navbar-item">Kapcsolat</a>
+                <a href="<?=$menu['kapcsolat']['path']?>" class="navbar-item"><?=$menu['kapcsolat']['name']?></a>
             </div>
 
             <div class="navbar-end">
@@ -38,16 +40,16 @@
                     <div class="navbar-item">
                         <?=App::get('auth')->getData('name')?> (<?=App::get('auth')->getData('username')?>)
                     </div>
-                    <a href="/kijelentkezes" class="navbar-item">Kijelentkezés</a>
+                    <a href="<?=$menu['kijelentkezes']['path']?>" class="navbar-item"><?=$menu['kijelentkezes']['name']?></a>
                 <?php } else { ?>
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a href="/regisztracio" class="button is-primary">
-                            <strong>Regisztráciió</strong>
+                        <a href="<?=$menu['regisztracio']['path']?>" class="button is-primary">
+                            <strong><?=$menu['regisztracio']['name']?></strong>
                         </a>
 
-                        <a href="/bejelentkezes" class="button is-light">
-                            Bejelentkezés
+                        <a href="<?=$menu['bejelentkezes']['path']?>" class="button is-light">
+                            <?=$menu['bejelentkezes']['name']?>
                         </a>
                     </div>
                 </div>
