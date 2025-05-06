@@ -38,7 +38,7 @@
 
                 <?php if (App::get('auth')->isLoggedIn()) { ?>
                     <div class="navbar-item">
-                        <?=App::get('auth')->getData('name')?> (<?=App::get('auth')->getData('username')?>)
+                        Bejelentkezett: <?=App::get('auth')->getData('name')?> (<?=App::get('auth')->getData('username')?>)
                     </div>
                     <a href="<?=$menu['kijelentkezes']['path']?>" class="navbar-item"><?=$menu['kijelentkezes']['name']?></a>
                 <?php } else { ?>
